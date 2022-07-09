@@ -5,6 +5,7 @@ import {
   WithId,
   Document,
   Db,
+  ObjectId,
 } from "mongodb";
 import MoviesFilter from "../interfaces/MoviesFilter";
 
@@ -57,6 +58,44 @@ export default class MoviesDAO {
         moviesList: [],
         totalNumMovies: 0,
       };
+    }
+  }
+
+  static async getRatings() {
+    let ratings: string[] | undefined = [];
+    try {
+      ratings = await movies?.distinct("rated");
+      return ratings;
+    } catch (e) {
+      console.error("Unable to get ratings, " + e);
+      return ratings;
+    }
+  }
+
+  static async getMovieById(id: any) {
+    try {
+      return movies
+        ?.aggregate([
+          {
+            $match: {
+              _id: new ObjectId(id),
+            },
+          },
+          {
+            $lookup: {
+              from: "reviews",
+              localField: "_id",
+              foreignField: "movie_id",
+              as: "reviews",
+            },
+          },
+        ])
+        .next();
+    } catch (e) {
+      console.error(
+        "Something went wrong in function " + this.name + " : " + e
+      );
+      throw e as Error;
     }
   }
 }
