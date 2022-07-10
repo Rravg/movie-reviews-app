@@ -72,7 +72,7 @@ export default class MoviesDAO {
     }
   }
 
-  static async getMovieById(id: any) {
+  static async getMovieById(id: string) {
     try {
       return movies
         ?.aggregate([

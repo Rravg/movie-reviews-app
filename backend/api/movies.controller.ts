@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { Document } from "mongodb";
 import Filter from "../interfaces/Filter";
 import MoviesDAO from "../dao/moviesDAO";
 
@@ -39,8 +40,8 @@ export default class MoviesController {
     next: NextFunction
   ) {
     try {
-      let id = req.params.id || {};
-      let movie = await MoviesDAO.getMovieById(id);
+      let id: string = req.params.id || "";
+      let movie: Document | null | undefined = await MoviesDAO.getMovieById(id);
       if (!movie) {
         res.status(404).json({ error: "not found" });
         return;
