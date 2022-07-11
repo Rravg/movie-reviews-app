@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 // import logo from "./logo.svg";
 import "./App.css";
 
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "./hooks";
+import { login } from "./reducers/userSlice";
 
 function App() {
   const user = useAppSelector((state) => state.user.value);
+  const dispatch = useAppDispatch();
 
-  async function login(user: boolean = false) {
-    console.log("login");
-  }
-
-  async function logout() {
-    console.log("logout");
+  async function handleLogout() {
+    dispatch(login(false));
   }
 
   return (
@@ -30,7 +28,7 @@ function App() {
               </Nav.Item>
               <Nav.Item className="nav-link">
                 {user ? (
-                  <a href="#logout" onClick={logout}>
+                  <a href="#logout" onClick={handleLogout}>
                     Logout User
                   </a>
                 ) : (
