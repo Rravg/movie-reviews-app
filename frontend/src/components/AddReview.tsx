@@ -2,7 +2,7 @@
 function AddReview() {
 
     return (
-        <div className="App">
+        <div>
             Add Review
         </div>
     )

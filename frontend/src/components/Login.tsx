@@ -11,7 +11,7 @@ function Login() {
   };
 
   return (
-    <div className="App">
+    <div>
       <Button variant="primary" onClick={handleClick}>
         Login
       </Button>

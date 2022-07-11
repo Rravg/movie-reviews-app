@@ -74,7 +74,7 @@ function MoviesList(props: any) {
   };
 
   return (
-    <div className="App">
+    <div>
       <Container>
         <Form>
           <Row className="mb-3">
@@ -117,9 +117,9 @@ function MoviesList(props: any) {
           </Row>
 
           <Row>
-            {movies.map((movie: any) => {
+            {movies.map((movie: any, index: number) => {
               return (
-                <Col>
+                <Col key={index}>
                   <Card style={{ width: "18rem" }}>
                     <Card.Img src={movie.poster + "/100px180"} />
                     <Card.Body>

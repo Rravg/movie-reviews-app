@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar bg="dark" variant="dark" expand="lg" className="mb-3">
         <Container>
           <Navbar.Brand href="#home">Movies Reviews</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
