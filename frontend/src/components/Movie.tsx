@@ -31,6 +31,17 @@ function Movie(props: any) {
     getMovie(id);
   }, [id]);
 
+  const deleteReview = (reviewId: string, index: number) => {
+    MovieDataService.deleteReview(reviewId, user?.id)
+      .then((response) => {
+        setMovie((state: any) => {
+          state.reviews.splice(index, 1);
+          return { ...state };
+        });
+      })
+      .catch((e) => console.log(e));
+  };
+
   return (
     <div>
       <Container>
@@ -52,7 +63,7 @@ function Movie(props: any) {
             <br></br>
             <h2>Reviews</h2>
             <br></br>
-            {movie.reviews.map((review: any, index: any) => {
+            {movie.reviews.map((review: any, index: number) => {
               return (
                 <Card key={index}>
                   <Card.Title>
@@ -72,7 +83,12 @@ function Movie(props: any) {
                         </Link>
                       </Col>
                       <Col>
-                        <Button variant="link">Delete</Button>
+                        <Button
+                          variant="link"
+                          onClick={() => deleteReview(review._id, index)}
+                        >
+                          Delete
+                        </Button>
                       </Col>
                     </Row>
                   )}
