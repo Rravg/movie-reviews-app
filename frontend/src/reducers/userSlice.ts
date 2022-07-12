@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface CounterState {
-  value: boolean;
+  value: { name: string; id: string } | null;
 }
 
 const initialState: CounterState = {
-  value: false,
+  value: null,
 };
 
 export const userSlice = createSlice({

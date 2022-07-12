@@ -12,7 +12,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   async function handleLogout() {
-    dispatch(login(false));
+    dispatch(login(null));
   }
 
   return (

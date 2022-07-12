@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import MovieDataService from "../services/MovieDataService";
 import { Link, useParams } from "react-router-dom";
-import { Col, Container, Row, Image, Card } from "react-bootstrap";
+import { Col, Container, Row, Image, Card, Button } from "react-bootstrap";
 import { useAppSelector } from "../hooks";
+import moment from "moment";
 
 function Movie(props: any) {
   const [movie, setMovie] = useState<any>({
@@ -28,7 +29,6 @@ function Movie(props: any) {
 
   useEffect(() => {
     getMovie(id);
-    console.log("id is: ", id);
   }, [id]);
 
   return (
@@ -51,6 +51,34 @@ function Movie(props: any) {
             </Card>
             <br></br>
             <h2>Reviews</h2>
+            <br></br>
+            {movie.reviews.map((review: any, index: any) => {
+              return (
+                <Card key={index}>
+                  <Card.Title>
+                    {review.name +
+                      " reviewed on " +
+                      moment(review.date).format("Do MMMM YYYY")}
+                  </Card.Title>
+                  <Card.Text>{review.review}</Card.Text>
+                  {user && user.id === review.user_id && (
+                    <Row>
+                      <Col>
+                        <Link
+                          to={"/movies/" + id + "/review"}
+                          state={{ currentReview: review }}
+                        >
+                          Edit
+                        </Link>
+                      </Col>
+                      <Col>
+                        <Button variant="link">Delete</Button>
+                      </Col>
+                    </Row>
+                  )}
+                </Card>
+              );
+            })}
           </Col>
         </Row>
       </Container>
