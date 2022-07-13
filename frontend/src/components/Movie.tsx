@@ -20,7 +20,6 @@ function Movie(props: any) {
     MovieDataService.get(id)
       .then((response) => {
         setMovie(response.data);
-        console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
